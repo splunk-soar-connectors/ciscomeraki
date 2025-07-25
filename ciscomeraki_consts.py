@@ -1,4 +1,4 @@
-# File: template_consts.py
+# File: ciscomeraki_consts.py
 #
 # Copyright (c) 2025 Splunk Inc.
 #
@@ -14,10 +14,10 @@
 # and limitations under the License.
 
 # API endpoints
-TEMPLATE_CONNECTIVITY_ENDPOINT = "/endpoint/to/test/connectivity"
+CISCOMERAKI_CONNECTIVITY_ENDPOINT = "/endpoint/to/test/connectivity"
 
 # Error messages
-TEMPLATE_ERR_CONNECTIVITY_TEST = "Test Connectivity Failed"
+CISCOMERAKI_ERR_CONNECTIVITY_TEST = "Test Connectivity Failed"
 
 # Success messages
-TEMPLATE_SUCC_CONNECTIVITY_TEST = "Test Connectivity Passed"
+CISCOMERAKI_SUCC_CONNECTIVITY_TEST = "Test Connectivity Passed"
