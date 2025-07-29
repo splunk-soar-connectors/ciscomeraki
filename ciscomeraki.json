@@ -1950,13 +1950,5 @@
             ],
             "versions": "EQ(*)"
         }
-    ],
-    "pip39_dependencies": {
-        "wheel": [
-            {
-                "module": "typing",
-                "input_file": "wheels/py3/typing-3.7.4.3-py3-none-any.whl"
-            }
-        ]
-    }
+    ]
 }
