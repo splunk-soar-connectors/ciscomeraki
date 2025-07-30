@@ -49,4 +49,9 @@ class ListOrganizations(BaseAction):
         summary = {"total_organizations": len(response)}
         self._action_result.update_summary(summary)
 
-        return self._action_result.set_status(phantom.APP_SUCCESS)
+        return self._action_result.set_status(
+            phantom.APP_SUCCESS,
+            consts.ACTION_SUCCESS_RESPONSE.format(
+                action=" ".join([i.capitalize() if idx > 0 else i for idx, i in enumerate(self._connector.get_action_identifier().split("_"))])
+            ),
+        )

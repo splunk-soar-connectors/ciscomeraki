@@ -16,8 +16,8 @@
 
 import phantom.app as phantom
 
+import ciscomeraki_consts as consts
 from actions import BaseAction
-from ciscomeraki_consts import *
 
 
 class SearchDevices(BaseAction):
@@ -53,14 +53,16 @@ class SearchDevices(BaseAction):
         params = {}
         for param in ["organization_id", "mac", "serial", "model", "tags"]:
             if self._param.get(param):
-                params[param] = (
-                    [value.strip() for value in self._param[param].split(",") if value.strip()] if param == "tags" else self._param[param]
-                )
-        self._connector.debug_print("Params --->", params)
+                if param == "tags":
+                    tag_list = [value.strip() for value in self._param[param].split(",") if value.strip()]
+                    if tag_list:  # Only add if there are actual tags
+                        params["tags[]"] = tag_list
+                else:
+                    params[param] = self._param[param]
         try:
             # Make REST call
             ret_val, response = self._connector._utils._make_rest_call(
-                SEARCH_DEVICES.format(organization_id=self._param["organization_id"]),
+                consts.SEARCH_DEVICES.format(organization_id=self._param["organization_id"]),
                 method="get",
                 action_result=self._action_result,
                 params=params,
@@ -77,7 +79,14 @@ class SearchDevices(BaseAction):
             summary = {"total_devices_found": len(response), "search_criteria": ", ".join(f"{k}: {v}" for k, v in params.items())}
             self._action_result.update_summary(summary)
 
-            return self._action_result.set_status(phantom.APP_SUCCESS)
+            return self._action_result.set_status(
+                phantom.APP_SUCCESS,
+                consts.ACTION_SUCCESS_RESPONSE.format(
+                    action=" ".join(
+                        [i.capitalize() if idx > 0 else i for idx, i in enumerate(self._connector.get_action_identifier().split("_"))]
+                    )
+                ),
+            )
 
         except Exception as e:
             error_message = self._connector._utils._get_error_message_from_exception(e)

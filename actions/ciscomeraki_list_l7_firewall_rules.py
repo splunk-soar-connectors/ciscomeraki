@@ -43,8 +43,6 @@ class ListL7FirewallRules(BaseAction):
         if phantom.is_fail(ret_val):
             return self._action_result.get_status()
 
-        self._connector.debug_print("response in process--->", response)
-
         # Process response
         for rule in response.get("rules", []):
             self._action_result.add_data(rule)

@@ -47,7 +47,6 @@ class CiscoMerakiUtils:
         """
         error_code = None
         error_msg = consts.ERROR_MESSAGE_UNAVAILABLE
-        self._connector.debug_print("into _get_error_message_from_exception --->", e)
         try:
             if hasattr(e, "args"):
                 if len(e.args) > 1:
@@ -56,10 +55,8 @@ class CiscoMerakiUtils:
                 elif len(e.args) == 1:
                     error_msg = e.args[0]
         except Exception:
-            self._connector.debug_print("into _get_error_message_from_exception Exception --->")
             pass
 
-        self._connector.debug_print(f"Error Code ---> : {error_code}. Error Message: {error_msg}")
         return f"Error Code: {error_code}. Error Message: {error_msg}"
 
     def _process_empty_response(self, response, action_result):
@@ -121,7 +118,6 @@ class CiscoMerakiUtils:
             return action_result.set_status(phantom.APP_ERROR, f"Unable to parse JSON response. Error: {error_message}"), None
 
         if 200 <= response.status_code < 399:
-            self._connector.debug_print("response in process--->", resp_json)
             return phantom.APP_SUCCESS, resp_json
 
         message = None
@@ -168,7 +164,6 @@ class CiscoMerakiUtils:
         while retries < consts.MAX_RETRIES:
             try:
                 self._connector.debug_print(f"Making {method} request to {full_url}")
-                self._connector.debug_print(f"Making kwargs ---> {kwargs}")
                 response = request_func(full_url, verify=self._connector.get_config().get("verify_server_cert", True), **kwargs)
                 # Handle rate limiting
                 if response.status_code == 429:
@@ -177,23 +172,13 @@ class CiscoMerakiUtils:
                     time.sleep(retry_after)
                     retries += 1
                     continue
-                self._connector.debug_print("response in process response --->", response)
-                self._connector.debug_print("response in process status_code --->", response.status_code)
-                self._connector.debug_print("response in process text --->", response.text)
-                # if not response:
-                #     return action_result.set_status(phantom.APP_ERROR, f"Status Code: {response.status_code}, Empty response from server"), resp_json
-
                 if response.status_code == 401:
                     return action_result.set_status(phantom.APP_ERROR, "API key invalid or expired"), resp_json
 
-                self._connector.debug_print("response calling process--->")
                 return self._process_response(response, action_result)
 
             except requests.exceptions.RequestException as e:
-                self._connector.debug_print("requests.exceptions.RequestException --->", e)
                 error_message = self._get_error_message_from_exception(e)
-                self._connector.debug_print(" error_message requests.exceptions.RequestException --->", error_message)
-                return action_result.set_status(phantom.APP_ERROR, f"Error connecting to server. Details: {error_message}"), resp_json
                 return action_result.set_status(phantom.APP_ERROR, f"Error connecting to server. Details: {error_message}"), resp_json
 
         return action_result.set_status(phantom.APP_ERROR, "Max retries exceeded for rate limiting"), resp_json
@@ -208,13 +193,9 @@ class CiscoMerakiUtils:
         Returns:
             tuple: Status (bool), response (dict)
         """
-        self._connector.debug_print("response in process--->", response)
-        self._connector.debug_print("response in process type ---> ", type(response.text))
-
         if not response.ok:
             if response.text:
                 json_error_text = json.loads(response.text) if isinstance(response.text, str) else response.text
-                self._connector.debug_print("dict type of instace --->")
                 return action_result.set_status(
                     phantom.APP_ERROR,
                     f"Status Code: {response.status_code}. Error: {json_error_text.get('error') if json_error_text.get('error', None) else response.text}",
@@ -302,42 +283,6 @@ class CiscoMerakiUtils:
                 return url
 
         return None
-
-
-# def handle_rate_limit(response, retries=0) -> Optional[Dict[str, Any]]:
-#     """
-#     Handle rate limiting with exponential backoff.
-
-#     Args:
-#         response: Response object from requests
-#         retries: Current retry count
-
-#     Returns:
-#         Response JSON if successful, None if max retries exceeded
-#     """
-#     if response.status_code != 429 or retries >= consts.MAX_RETRIES:
-#         return None
-
-#     retry_after = int(response.headers.get('Retry-After', consts.INITIAL_RETRY_DELAY))
-#     time.sleep(retry_after)
-#     return {'retry_count': retries + 1, 'wait_time': retry_after}
-
-# def get_default_headers(api_key: str) -> Dict[str, str]:
-#     """
-#     Get default headers for Meraki API requests including User-Agent
-
-#     Args:
-#         api_key: Meraki API key
-
-#     Returns:
-#         Dictionary of headers
-#     """
-#     return {
-#         'X-Cisco-Meraki-API-Key': api_key,
-#         'Content-Type': 'application/json',
-#         'User-Agent': 'Splunk SOAR Cisco Test',
-#         'Accept': 'application/json'
-#     }
 
 
 def validate_params(params: dict[str, Any], required_params: dict[str, Any], operation: Optional[str] = None) -> dict[str, Any]:

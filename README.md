@@ -4,7 +4,7 @@ Publisher: Splunk <br>
 Connector Version: 1.0.0 <br>
 Product Vendor: Cisco <br>
 Product Name: Meraki <br>
-Minimum Product Version: 6.3.0
+Minimum Product Version: 5.2.0
 
 This app integrates with Cisco Meraki to provide management and monitoring capabilities for Meraki networks and devices
 
@@ -83,7 +83,7 @@ action_result.data.\*.cloud.region.name | string | | North America |
 action_result.data.\*.id | string | | |
 action_result.data.\*.licensing.model | string | | co-term |
 action_result.data.\*.name | string | | |
-action_result.data.\*.samlConsumerUrl | string | | https://n190.meraki.com/saml/login/f-AVva-c/T6RQaakLUkqc |
+action_result.data.\*.samlConsumerUrl | string | | https://api.meraki.com/saml/login/f-TESTv-c/TEST999 |
 action_result.data.\*.url | string | `url` | |
 action_result.summary.total_organizations | numeric | | 1 |
 action_result.message | string | | Total organizations: 1 |
@@ -106,24 +106,24 @@ This action retrieves a list of all devices in the organization's inventory.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**organization_id** | required | Organization ID | string | |
+**organization_id** | required | Organization ID | string | `organization id` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.organization_id | string | | 123456789 |
+action_result.parameter.organization_id | string | `organization id` | 123456789 |
 action_result.data.\*.claimedAt | string | | 2025-06-12T10:30:28.085867Z |
 action_result.data.\*.countryCode | string | | US |
-action_result.data.\*.mac | string | | 4c:c8:a1:02:00:1b |
+action_result.data.\*.mac | string | | 00:11:22:33:44:55 |
 action_result.data.\*.model | string | | |
 action_result.data.\*.name | string | | Main Office AP |
-action_result.data.\*.networkId | string | | |
+action_result.data.\*.networkId | string | `network id` | |
 action_result.data.\*.orderNumber | string | | |
 action_result.data.\*.productType | string | | appliance |
-action_result.data.\*.serial | string | | |
-action_result.summary.organization_id | string | | 669910444571365756 |
+action_result.data.\*.serial | string | `serial` | |
+action_result.summary.organization_id | string | `organization id` | 123456789012 |
 action_result.summary.total_devices | numeric | | |
 action_result.message | string | | Total organization inventory devices: 5 |
 summary.total_objects | numeric | | 1 |
@@ -142,7 +142,7 @@ This action searches for devices using MAC address, serial number, model, or tag
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**organization_id** | required | Organization ID | string | `organization_id` |
+**organization_id** | required | Organization ID | string | `organization id` |
 **mac** | optional | MAC address of the device | string | |
 **serial** | optional | Serial number of the device | string | |
 **model** | optional | Model of the device | string | |
@@ -155,13 +155,28 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action_result.status | string | | success failed |
 action_result.parameter.mac | string | | |
 action_result.parameter.model | string | | |
-action_result.parameter.organization_id | string | `organization_id` | |
+action_result.parameter.organization_id | string | `organization id` | |
 action_result.parameter.serial | string | | |
 action_result.parameter.tags | string | | |
+action_result.data.\*.address | string | | |
+action_result.data.\*.configurationUpdatedAt | string | | 2025-07-23T09:16:26Z |
+action_result.data.\*.details.\*.name | string | | Running software version |
+action_result.data.\*.details.\*.value | string | | MV 6.3.3 |
+action_result.data.\*.firmware | string | | Not running configured version |
+action_result.data.\*.lanIp | string | | |
+action_result.data.\*.lat | numeric | | 37.4180951010362 |
+action_result.data.\*.lng | numeric | | -122.098531723022 |
 action_result.data.\*.mac | string | | |
 action_result.data.\*.model | string | | |
-action_result.data.\*.networkIdf | string | | |
-action_result.data.\*.serial | string | | |
+action_result.data.\*.name | string | | Updated Device Name |
+action_result.data.\*.networkId | string | `network id` | |
+action_result.data.\*.notes | string | | |
+action_result.data.\*.productType | string | | camera |
+action_result.data.\*.serial | string | `serial` | |
+action_result.data.\*.url | string | | https://api.meraki.com/branch-office-ca/n/ps-TEST-c/manage/nodes/new_list/9921341234 |
+action_result.data.\*.wan1Ip | string | | |
+action_result.data.\*.wan2Ip | string | | |
+action_result.summary.search_criteria | string | | organization_id: 123456789, serial: TEST-382D-WS21 |
 action_result.summary.total_devices_found | numeric | | |
 action_result.message | string | | Successfully retrieved search results |
 summary.total_objects | numeric | | 1 |
@@ -180,7 +195,7 @@ This action retrieves a list of all devices in the network.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**network_id** | required | Network ID | string | |
+**network_id** | required | Network ID | string | `network id` |
 **per_page** | optional | The number of entries per page returned (3-1000) | numeric | |
 
 #### Action Output
@@ -188,24 +203,24 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.network_id | string | | L_123456789012345 |
+action_result.parameter.network_id | string | `network id` | L_123456789012345 |
 action_result.parameter.per_page | numeric | | 1000 |
 action_result.data.\*.address | string | | 123 Main St, San Francisco, CA |
 action_result.data.\*.firmware | string | | Not running configured version |
 action_result.data.\*.floorPlanId | string | | floor-123 |
-action_result.data.\*.lanIp | string | | 192.168.1.1 |
+action_result.data.\*.lanIp | string | | 8.8.8.8 |
 action_result.data.\*.lat | numeric | | 37.4180951010362 |
 action_result.data.\*.lng | numeric | | -122.098531723022 |
-action_result.data.\*.mac | string | | 4c:c8:a1:0f:01:36 |
+action_result.data.\*.mac | string | | 00:11:22:33:44:55 |
 action_result.data.\*.model | string | | |
 action_result.data.\*.name | string | | Branch Office AP |
-action_result.data.\*.networkId | string | | |
+action_result.data.\*.networkId | string | `network id` | |
 action_result.data.\*.orderNumber | string | | |
-action_result.data.\*.serial | string | | |
-action_result.data.\*.url | string | | https://n190.meraki.com/branch-office-ca/n/K916rc-c/manage/nodes/new_list/84424579285302 |
-action_result.data.\*.wan1Ip | string | | 203.0.113.1 |
-action_result.data.\*.wan2Ip | string | | 203.0.113.2 |
-action_result.data.\*.wirelessMac | string | | 4c:c8:a1:0f:01:37 |
+action_result.data.\*.serial | string | `serial` | |
+action_result.data.\*.url | string | | https://api.meraki.com/branch-office-ca/n/TEST12rc-c/manage/nodes/new_list/99991234 |
+action_result.data.\*.wan1Ip | string | | 8.8.8.8 |
+action_result.data.\*.wan2Ip | string | | 8.8.4.4 |
+action_result.data.\*.wirelessMac | string | | 00:11:22:33:44:55 |
 action_result.summary.total_devices | numeric | | |
 action_result.message | string | | Total devices: 5 |
 summary.total_objects | numeric | | 1 |
@@ -224,7 +239,7 @@ This action updates an existing device in the network.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**network_id** | required | Network ID | string | |
+**network_id** | required | Network ID | string | `network id` |
 **serial** | required | Device serial number | string | |
 **name** | optional | Name to assign to the device | string | |
 **tags** | optional | Tags to assign to the device (comma-separated allowed) | string | |
@@ -237,16 +252,28 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action_result.status | string | | success failed |
 action_result.parameter.mac | string | | |
 action_result.parameter.name | string | | |
-action_result.parameter.network_id | string | | |
+action_result.parameter.network_id | string | `network id` | |
 action_result.parameter.serial | string | | |
 action_result.parameter.tags | string | | |
+action_result.data.\*.address | string | | |
+action_result.data.\*.firmware | string | | Not running configured version |
+action_result.data.\*.floorPlanId | string | | |
+action_result.data.\*.lanIp | string | | |
+action_result.data.\*.lat | numeric | | 37.4180951010362 |
+action_result.data.\*.lng | numeric | | -122.098531723022 |
 action_result.data.\*.mac | string | | |
 action_result.data.\*.model | string | | |
 action_result.data.\*.name | string | | |
-action_result.data.\*.networkId | string | | |
-action_result.data.\*.serial | string | | |
+action_result.data.\*.networkId | string | `network id` | |
+action_result.data.\*.serial | string | `serial` | |
 action_result.data.\*.tags | string | | |
+action_result.data.\*.url | string | | https://api.meraki.com/branch-office-ca/n/tt-TEST-v/manage/nodes/new_list/99991234 |
+action_result.data.\*.wan1Ip | string | | |
+action_result.data.\*.wan2Ip | string | | |
+action_result.data.\*.wirelessMac | string | | 4c:c8:a1:0f:01:37 |
 action_result.summary | string | | |
+action_result.summary.device_updated | boolean | | True False |
+action_result.summary.serial | string | | |
 action_result.message | string | | Successfully updated item |
 summary.total_devices_updated | numeric | | |
 summary.total_objects | numeric | | 1 |
@@ -265,7 +292,7 @@ This action removes an existing device from the network.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**network_id** | required | Network ID | string | |
+**network_id** | required | Network ID | string | `network id` |
 **serial** | required | Device serial number | string | |
 
 #### Action Output
@@ -273,7 +300,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.network_id | string | | |
+action_result.parameter.network_id | string | `network id` | |
 action_result.parameter.serial | string | | |
 action_result.data | string | | |
 action_result.summary | string | | |
@@ -295,7 +322,7 @@ This action retrieves a list of clients connected to a specific device.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**serial** | required | Serial number of the device | string | |
+**serial** | required | Serial number of the device | string | `serial` |
 **timespan** | optional | Timespan in seconds (300-2592000) | numeric | |
 
 #### Action Output
@@ -303,7 +330,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.serial | string | | Q2XX-XXXX-XXXX |
+action_result.parameter.serial | string | `serial` | Q2XX-XXXX-XXXX |
 action_result.parameter.timespan | numeric | | 86400 |
 action_result.data.\*.description | string | | |
 action_result.data.\*.id | string | | |
@@ -327,14 +354,14 @@ This action retrieves the Layer 3 firewall rules configured for a specific netwo
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**network_id** | required | Network ID | string | |
+**network_id** | required | Network ID | string | `network id` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.network_id | string | | L_123456789012345 |
+action_result.parameter.network_id | string | `network id` | L_123456789012345 |
 action_result.data.\*.comment | string | | |
 action_result.data.\*.destCidr | string | | |
 action_result.data.\*.destPort | string | | |
@@ -362,7 +389,7 @@ This action updates the Layer 3 firewall rules for a specific network.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**network_id** | required | Network ID | string | |
+**network_id** | required | Network ID | string | `network id` |
 **rules** | required | Firewall rules in JSON format | string | |
 
 #### Action Output
@@ -370,16 +397,19 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.network_id | string | | |
+action_result.parameter.network_id | string | `network id` | |
 action_result.parameter.rules | string | | |
-action_result.data.\*.comment | string | | |
-action_result.data.\*.destCidr | string | | |
-action_result.data.\*.destPort | string | | |
-action_result.data.\*.policy | string | | |
-action_result.data.\*.protocol | string | | |
-action_result.data.\*.srcCidr | string | | |
-action_result.data.\*.srcPort | string | | |
+action_result.data.\*.rules.rules.\*.comment | string | | Test firewall rule |
+action_result.data.\*.rules.rules.\*.destCidr | string | | 8.8.8.8/24 |
+action_result.data.\*.rules.rules.\*.destPort | string | | Any |
+action_result.data.\*.rules.rules.\*.policy | string | | allow |
+action_result.data.\*.rules.rules.\*.protocol | string | | any |
+action_result.data.\*.rules.rules.\*.srcCidr | string | | 8.8.8.8/24 |
+action_result.data.\*.rules.rules.\*.srcPort | string | | Any |
+action_result.data.\*.rules.rules.\*.syslogEnabled | boolean | | True False |
+action_result.data.\*.rules_updated | boolean | | True False |
 action_result.summary | string | | |
+action_result.summary.total_rules_updated | numeric | | 1 |
 action_result.message | string | | Successfully updated item |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
@@ -398,14 +428,14 @@ This action retrieves the Layer 7 firewall rules configured for a specific netwo
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**network_id** | required | Network ID | string | |
+**network_id** | required | Network ID | string | `network id` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.network_id | string | | L_123456789012345 |
+action_result.parameter.network_id | string | `network id` | L_123456789012345 |
 action_result.data.\*.policy | string | | |
 action_result.data.\*.type | string | | |
 action_result.data.\*.value | string | | |
@@ -428,7 +458,7 @@ This action updates the Layer 7 firewall rules for a specific network.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**network_id** | required | Network ID | string | |
+**network_id** | required | Network ID | string | `network id` |
 **rules** | required | Firewall rules in JSON format | string | |
 
 #### Action Output
@@ -436,12 +466,14 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.network_id | string | | |
+action_result.parameter.network_id | string | `network id` | |
 action_result.parameter.rules | string | | |
-action_result.data.\*.policy | string | | |
-action_result.data.\*.type | string | | |
-action_result.data.\*.value | string | | |
+action_result.data.\*.rules.rules.\*.policy | string | | deny |
+action_result.data.\*.rules.rules.\*.type | string | | host |
+action_result.data.\*.rules.rules.\*.value | string | | facebook.com |
+action_result.data.\*.rules_updated | boolean | | True False |
 action_result.summary | string | | |
+action_result.summary.total_rules_updated | numeric | | 1 |
 action_result.message | string | | Successfully updated item |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
@@ -460,14 +492,14 @@ This action retrieves a list of adaptive policies.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**organization_id** | required | Organization ID | string | |
+**organization_id** | required | Organization ID | string | `organization id` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.organization_id | string | | 123456789012 |
+action_result.parameter.organization_id | string | `organization id` | 123456789012 |
 action_result.data.\*.acls.\*.id | string | | 669910444571361325 |
 action_result.data.\*.acls.\*.name | string | | https_allow |
 action_result.data.\*.adaptivePolicyId | string | | 669910444571361367 |
@@ -476,9 +508,7 @@ action_result.data.\*.description | string | | |
 action_result.data.\*.destinationGroup.id | string | | 669910444571364328 |
 action_result.data.\*.destinationGroup.name | string | | Corporate Servers |
 action_result.data.\*.destinationGroup.sgt | numeric | | 200 |
-action_result.data.\*.id | string | | |
 action_result.data.\*.lastEntryRule | string | | allow |
-action_result.data.\*.name | string | | |
 action_result.data.\*.sourceGroup.id | string | | 669910444571364327 |
 action_result.data.\*.sourceGroup.name | string | | Corporate Users |
 action_result.data.\*.sourceGroup.sgt | numeric | | 100 |
@@ -501,14 +531,14 @@ This action retrieves a list of adaptive policy acls.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**organization_id** | required | Organization ID | string | |
+**organization_id** | required | Organization ID | string | `organization id` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.organization_id | string | | 123456789012 |
+action_result.parameter.organization_id | string | `organization id` | 123456789012 |
 action_result.data.\*.aclId | string | | 669910444571361317 |
 action_result.data.\*.createdAt | string | | 2025-06-18T12:18:01Z |
 action_result.data.\*.description | string | | |
@@ -540,14 +570,14 @@ This action retrieves a list of adaptive policy groups.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**organization_id** | required | Organization ID | string | |
+**organization_id** | required | Organization ID | string | `organization id` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.organization_id | string | | 123456789012 |
+action_result.parameter.organization_id | string | `organization id` | 123456789012 |
 action_result.data.\*.createdAt | string | | 2025-06-10T08:59:33Z |
 action_result.data.\*.description | string | | |
 action_result.data.\*.groupId | string | | 669910444571364327 |
@@ -574,14 +604,14 @@ This action retrieves a list of adaptive policy settings.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**organization_id** | required | Organization ID | string | |
+**organization_id** | required | Organization ID | string | `organization id` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.organization_id | string | | 123456789012 |
+action_result.parameter.organization_id | string | `organization id` | 123456789012 |
 action_result.data.\*.description | string | | |
 action_result.data.\*.id | string | | |
 action_result.data.\*.name | string | | |

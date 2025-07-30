@@ -16,8 +16,8 @@
 
 import phantom.app as phantom
 
+import ciscomeraki_consts as consts
 from actions import BaseAction
-from ciscomeraki_consts import *
 
 
 class ListOrgLicenseStates(BaseAction):
@@ -31,7 +31,7 @@ class ListOrgLicenseStates(BaseAction):
         """
         organization_id = self._param.get("organization_id")
         if not organization_id:
-            return self._action_result.set_status(phantom.APP_ERROR, ERROR_REQUIRED_PARAM.format(key="organization_id"))
+            return self._action_result.set_status(phantom.APP_ERROR, consts.ERROR_REQUIRED_PARAM.format(key="organization_id"))
 
         return phantom.APP_SUCCESS
 
@@ -53,12 +53,10 @@ class ListOrgLicenseStates(BaseAction):
         try:
             # Make REST call
             ret_val, response = self._connector._utils._make_rest_call(
-                ORG_LICENSE_STATE.format(organization_id=organization_id), self._action_result, "get"
+                consts.ORG_LICENSE_STATE.format(organization_id=organization_id), self._action_result, "get"
             )
 
             if phantom.is_fail(ret_val):
-                self._connector.debug_print("Failing --->", ret_val)
-                self._connector.debug_print("message  --->", self._action_result.get_status())
                 return self._action_result.get_status()
 
             # Add the license state data
@@ -72,7 +70,14 @@ class ListOrgLicenseStates(BaseAction):
             }
             self._action_result.update_summary(summary)
 
-            return self._action_result.set_status(phantom.APP_SUCCESS)
+            return self._action_result.set_status(
+                phantom.APP_SUCCESS,
+                consts.ACTION_SUCCESS_RESPONSE.format(
+                    action=" ".join(
+                        [i.capitalize() if idx > 0 else i for idx, i in enumerate(self._connector.get_action_identifier().split("_"))]
+                    )
+                ),
+            )
 
         except Exception as e:
             error_message = self._connector._utils._get_error_message_from_exception(e)

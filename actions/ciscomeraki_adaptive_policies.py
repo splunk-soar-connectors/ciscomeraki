@@ -67,7 +67,14 @@ class AdaptivePolicies:
             summary = {"total_items": len(response), "operation_type": self._operation_type, "organization_id": organization_id}
             self._action_result.update_summary(summary)
 
-            return self._action_result.set_status(phantom.APP_SUCCESS)
+            return self._action_result.set_status(
+                phantom.APP_SUCCESS,
+                consts.ACTION_SUCCESS_RESPONSE.format(
+                    action=" ".join(
+                        [i.capitalize() if idx > 0 else i for idx, i in enumerate(self._connector.get_action_identifier().split("_"))]
+                    )
+                ),
+            )
 
         except Exception as e:
             error_message = self._connector._utils._get_error_message_from_exception(e)

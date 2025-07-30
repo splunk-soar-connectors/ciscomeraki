@@ -16,8 +16,8 @@
 
 import phantom.app as phantom
 
+import ciscomeraki_consts as consts
 from actions import BaseAction
-from ciscomeraki_consts import *
 
 
 class TestConnectivity(BaseAction):
@@ -37,8 +37,8 @@ class TestConnectivity(BaseAction):
         ret_val = self._connector._auth.validate_credentials(self._action_result)
         # ret_val, response = self._connector._utils._make_rest_call(LIST_ORGANIZATIONS, self._action_result, method="get")
         if phantom.is_fail(ret_val):
-            self._connector.save_progress(ERROR_TEST_CONNECTIVITY)
+            self._connector.save_progress(consts.ERROR_TEST_CONNECTIVITY)
             return self._action_result.get_status()
 
-        self._connector.save_progress(SUCCESS_TEST_CONNECTIVITY)
+        self._connector.save_progress(consts.SUCCESS_TEST_CONNECTIVITY)
         return self._action_result.set_status(phantom.APP_SUCCESS)

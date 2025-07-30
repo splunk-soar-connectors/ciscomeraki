@@ -16,8 +16,8 @@
 
 import phantom.app as phantom
 
+import ciscomeraki_consts as consts
 from actions import BaseAction
-from ciscomeraki_consts import *
 
 
 class ListL3FirewallRules(BaseAction):
@@ -26,7 +26,7 @@ class ListL3FirewallRules(BaseAction):
     def _validate_params(self):
         network_id = self._param.get("network_id")
         if not network_id:
-            return self._action_result.set_status(phantom.APP_ERROR, ERROR_REQUIRED_PARAM.format(key="network_id"))
+            return self._action_result.set_status(phantom.APP_ERROR, consts.ERROR_REQUIRED_PARAM.format(key="network_id"))
         return phantom.APP_SUCCESS
 
     def execute(self):
@@ -35,10 +35,7 @@ class ListL3FirewallRules(BaseAction):
         Returns:
             bool: Success/failure
         """
-        self._connector.save_progress(EXECUTION_START_MSG.format("list_l3_firewall_rules"))
-
-        # self._param = self._connector.get_current_param()
-        #       self._action_result = self._connector.add_action_result(ActionResult(dict(self._param)))
+        self._connector.save_progress(consts.EXECUTION_START_MSG.format("list_l3_firewall_rules"))
 
         # Validate parameters
         if phantom.is_fail(self._validate_params()):
@@ -50,7 +47,7 @@ class ListL3FirewallRules(BaseAction):
 
         # Make REST call
         ret_val, response = self._connector._utils._make_rest_call(
-            endpoint=LIST_L3_FIREWALL_RULES.format(network_id=network_id), action_result=self._action_result, method="get"
+            endpoint=consts.LIST_L3_FIREWALL_RULES.format(network_id=network_id), action_result=self._action_result, method="get"
         )
 
         if phantom.is_fail(ret_val):
@@ -58,13 +55,17 @@ class ListL3FirewallRules(BaseAction):
 
         # Process response
         try:
-            self._connector.debug_print("response in process--->", response)
             for rule in response.get("rules", []):
                 self._action_result.add_data(rule)
             summary = {"total_rules": len(response)}
             self._action_result.update_summary(summary)
             return self._action_result.set_status(
-                phantom.APP_SUCCESS, ACTION_SUCCESS_RESPONSE.format(action=self._connector.get_action_identifier())
+                phantom.APP_SUCCESS,
+                consts.ACTION_SUCCESS_RESPONSE.format(
+                    action=" ".join(
+                        [i.capitalize() if idx > 0 else i for idx, i in enumerate(self._connector.get_action_identifier().split("_"))]
+                    )
+                ),
             )
         except Exception as e:
             error_message = self._connector._utils._get_error_message_from_exception(e)

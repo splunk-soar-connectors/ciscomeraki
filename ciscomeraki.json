@@ -15,7 +15,7 @@
     "utctime_updated": "2025-01-01T00:00:00.000000Z",
     "package_name": "phantom_ciscomeraki",
     "main_module": "ciscomeraki_connector.py",
-    "min_phantom_version": "6.3.0",
+    "min_phantom_version": "5.2.0",
     "logo": "logo_ciscomeraki.svg",
     "logo_dark": "logo_ciscomeraki_dark.svg",
     "python_version": "3",
@@ -149,7 +149,7 @@
                     "data_path": "action_result.data.*.samlConsumerUrl",
                     "data_type": "string",
                     "example_values": [
-                        "https://n190.meraki.com/saml/login/f-AVva-c/T6RQaakLUkqc"
+                        "https://api.meraki.com/saml/login/f-TESTv-c/TEST999"
                     ]
                 },
                 {
@@ -222,7 +222,11 @@
                     "description": "Organization ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "organization id"
+                    ]
                 }
             },
             "render": {
@@ -245,6 +249,9 @@
                     "data_type": "string",
                     "example_values": [
                         "123456789"
+                    ],
+                    "contains": [
+                        "organization id"
                     ]
                 },
                 {
@@ -265,7 +272,7 @@
                     "data_path": "action_result.data.*.mac",
                     "data_type": "string",
                     "example_values": [
-                        "4c:c8:a1:02:00:1b"
+                        "00:11:22:33:44:55"
                     ]
                 },
                 {
@@ -285,13 +292,14 @@
                     "data_path": "action_result.data.*.networkId",
                     "data_type": "string",
                     "column_name": "Network ID",
-                    "column_order": 2
+                    "column_order": 2,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.orderNumber",
-                    "data_type": "string",
-                    "column_name": "Order Number",
-                    "column_order": 3
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.productType",
@@ -304,20 +312,26 @@
                     "data_path": "action_result.data.*.serial",
                     "data_type": "string",
                     "column_name": "Serial",
-                    "column_order": 0
+                    "column_order": 0,
+                    "contains": [
+                        "serial"
+                    ]
                 },
                 {
                     "data_path": "action_result.summary.organization_id",
                     "data_type": "string",
                     "example_values": [
-                        "669910444571365756"
+                        "123456789012"
+                    ],
+                    "column_name": "Organization ID",
+                    "column_order": 3,
+                    "contains": [
+                        "organization id"
                     ]
                 },
                 {
                     "data_path": "action_result.summary.total_devices",
-                    "data_type": "numeric",
-                    "column_name": "Total Devices",
-                    "column_order": 4
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.message",
@@ -358,7 +372,7 @@
                     "primary": true,
                     "order": 0,
                     "contains": [
-                        "organization_id"
+                        "organization id"
                     ]
                 },
                 "mac": {
@@ -409,7 +423,7 @@
                     "data_path": "action_result.parameter.organization_id",
                     "data_type": "string",
                     "contains": [
-                        "organization_id"
+                        "organization id"
                     ]
                 },
                 {
@@ -419,6 +433,56 @@
                 {
                     "data_path": "action_result.parameter.tags",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.address",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.configurationUpdatedAt",
+                    "data_type": "string",
+                    "example_values": [
+                        "2025-07-23T09:16:26Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.details.*.name",
+                    "data_type": "string",
+                    "example_values": [
+                        "Running software version"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.details.*.value",
+                    "data_type": "string",
+                    "example_values": [
+                        "MV 6.3.3"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.firmware",
+                    "data_type": "string",
+                    "example_values": [
+                        "Not running configured version"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lanIp",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.lat",
+                    "data_type": "numeric",
+                    "example_values": [
+                        37.4180951010362
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lng",
+                    "data_type": "numeric",
+                    "example_values": [
+                        -122.098531723022
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.mac",
@@ -433,22 +497,66 @@
                     "column_order": 2
                 },
                 {
-                    "data_path": "action_result.data.*.networkIdf",
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_values": [
+                        "Updated Device Name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.networkId",
                     "data_type": "string",
                     "column_name": "Network ID",
-                    "column_order": 3
+                    "column_order": 3,
+                    "contains": [
+                        "network id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.notes",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.productType",
+                    "data_type": "string",
+                    "example_values": [
+                        "camera"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.serial",
                     "data_type": "string",
                     "column_name": "Serial",
-                    "column_order": 0
+                    "column_order": 0,
+                    "contains": [
+                        "serial"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.url",
+                    "data_type": "string",
+                    "example_values": [
+                        "https://api.meraki.com/branch-office-ca/n/ps-TEST-c/manage/nodes/new_list/9921341234"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.wan1Ip",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.wan2Ip",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.search_criteria",
+                    "data_type": "string",
+                    "example_values": [
+                        "organization_id: 123456789, serial: TEST-382D-WS21"
+                    ]
                 },
                 {
                     "data_path": "action_result.summary.total_devices_found",
-                    "data_type": "numeric",
-                    "column_name": "Total Found",
-                    "column_order": 4
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.message",
@@ -486,7 +594,11 @@
                     "description": "Network ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 "per_page": {
                     "description": "The number of entries per page returned (3-1000)",
@@ -516,6 +628,9 @@
                     "data_type": "string",
                     "example_values": [
                         "L_123456789012345"
+                    ],
+                    "contains": [
+                        "network id"
                     ]
                 },
                 {
@@ -550,7 +665,7 @@
                     "data_path": "action_result.data.*.lanIp",
                     "data_type": "string",
                     "example_values": [
-                        "192.168.1.1"
+                        "8.8.8.8"
                     ]
                 },
                 {
@@ -571,7 +686,7 @@
                     "data_path": "action_result.data.*.mac",
                     "data_type": "string",
                     "example_values": [
-                        "4c:c8:a1:0f:01:36"
+                        "00:11:22:33:44:55"
                     ]
                 },
                 {
@@ -591,53 +706,55 @@
                     "data_path": "action_result.data.*.networkId",
                     "data_type": "string",
                     "column_name": "Network ID",
-                    "column_order": 2
+                    "column_order": 2,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.orderNumber",
-                    "data_type": "string",
-                    "column_name": "Order Number",
-                    "column_order": 3
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.serial",
                     "data_type": "string",
                     "column_name": "Serial",
-                    "column_order": 0
+                    "column_order": 0,
+                    "contains": [
+                        "serial"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.url",
                     "data_type": "string",
                     "example_values": [
-                        "https://n190.meraki.com/branch-office-ca/n/K916rc-c/manage/nodes/new_list/84424579285302"
+                        "https://api.meraki.com/branch-office-ca/n/TEST12rc-c/manage/nodes/new_list/99991234"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.wan1Ip",
                     "data_type": "string",
                     "example_values": [
-                        "203.0.113.1"
+                        "8.8.8.8"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.wan2Ip",
                     "data_type": "string",
                     "example_values": [
-                        "203.0.113.2"
+                        "8.8.4.4"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.wirelessMac",
                     "data_type": "string",
                     "example_values": [
-                        "4c:c8:a1:0f:01:37"
+                        "00:11:22:33:44:55"
                     ]
                 },
                 {
                     "data_path": "action_result.summary.total_devices",
-                    "data_type": "numeric",
-                    "column_name": "Total Devices",
-                    "column_order": 4
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.message",
@@ -675,7 +792,11 @@
                     "description": "Network ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 "serial": {
                     "description": "Device serial number",
@@ -724,7 +845,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.network_id",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.serial",
@@ -733,6 +857,39 @@
                 {
                     "data_path": "action_result.parameter.tags",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.address",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.firmware",
+                    "data_type": "string",
+                    "example_values": [
+                        "Not running configured version"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.floorPlanId",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.lanIp",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.lat",
+                    "data_type": "numeric",
+                    "example_values": [
+                        37.4180951010362
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lng",
+                    "data_type": "numeric",
+                    "example_values": [
+                        -122.098531723022
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.mac",
@@ -756,13 +913,19 @@
                     "data_path": "action_result.data.*.networkId",
                     "data_type": "string",
                     "column_name": "Network ID",
-                    "column_order": 4
+                    "column_order": 4,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.serial",
                     "data_type": "string",
                     "column_name": "Serial",
-                    "column_order": 0
+                    "column_order": 0,
+                    "contains": [
+                        "serial"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.tags",
@@ -771,7 +934,41 @@
                     "column_order": 3
                 },
                 {
+                    "data_path": "action_result.data.*.url",
+                    "data_type": "string",
+                    "example_values": [
+                        "https://api.meraki.com/branch-office-ca/n/tt-TEST-v/manage/nodes/new_list/99991234"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.wan1Ip",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.wan2Ip",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.wirelessMac",
+                    "data_type": "string",
+                    "example_values": [
+                        "4c:c8:a1:0f:01:37"
+                    ]
+                },
+                {
                     "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.device_updated",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.serial",
                     "data_type": "string"
                 },
                 {
@@ -814,7 +1011,11 @@
                     "description": "Network ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 "serial": {
                     "description": "Device serial number",
@@ -840,7 +1041,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.network_id",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.serial",
@@ -894,7 +1098,11 @@
                     "description": "Serial number of the device",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "serial"
+                    ]
                 },
                 "timespan": {
                     "description": "Timespan in seconds (300-2592000)",
@@ -923,6 +1131,9 @@
                     "data_type": "string",
                     "example_values": [
                         "Q2XX-XXXX-XXXX"
+                    ],
+                    "contains": [
+                        "serial"
                     ]
                 },
                 {
@@ -1002,7 +1213,11 @@
                     "description": "Network ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "network id"
+                    ]
                 }
             },
             "render": {
@@ -1025,6 +1240,9 @@
                     "data_type": "string",
                     "example_values": [
                         "L_123456789012345"
+                    ],
+                    "contains": [
+                        "network id"
                     ]
                 },
                 {
@@ -1124,7 +1342,11 @@
                     "description": "Network ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 "rules": {
                     "description": "Firewall rules in JSON format",
@@ -1150,57 +1372,106 @@
                 },
                 {
                     "data_path": "action_result.parameter.network_id",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.rules",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.data.*.comment",
+                    "data_path": "action_result.data.*.rules.rules.*.comment",
                     "data_type": "string",
+                    "example_values": [
+                        "Test firewall rule"
+                    ],
                     "column_name": "Comment",
-                    "column_order": 6
+                    "column_order": 1
                 },
                 {
-                    "data_path": "action_result.data.*.destCidr",
+                    "data_path": "action_result.data.*.rules.rules.*.destCidr",
                     "data_type": "string",
+                    "example_values": [
+                        "8.8.8.8/24"
+                    ],
                     "column_name": "Destination CIDR",
-                    "column_order": 3
+                    "column_order": 4
                 },
                 {
-                    "data_path": "action_result.data.*.destPort",
+                    "data_path": "action_result.data.*.rules.rules.*.destPort",
                     "data_type": "string",
+                    "example_values": [
+                        "Any"
+                    ],
                     "column_name": "Destination Port",
                     "column_order": 5
                 },
                 {
-                    "data_path": "action_result.data.*.policy",
+                    "data_path": "action_result.data.*.rules.rules.*.policy",
                     "data_type": "string",
+                    "example_values": [
+                        "allow"
+                    ],
                     "column_name": "Policy",
                     "column_order": 0
                 },
                 {
-                    "data_path": "action_result.data.*.protocol",
+                    "data_path": "action_result.data.*.rules.rules.*.protocol",
                     "data_type": "string",
+                    "example_values": [
+                        "any"
+                    ],
                     "column_name": "Protocol",
-                    "column_order": 1
+                    "column_order": 6
                 },
                 {
-                    "data_path": "action_result.data.*.srcCidr",
+                    "data_path": "action_result.data.*.rules.rules.*.srcCidr",
                     "data_type": "string",
+                    "example_values": [
+                        "8.8.8.8/24"
+                    ],
                     "column_name": "Source CIDR",
                     "column_order": 2
                 },
                 {
-                    "data_path": "action_result.data.*.srcPort",
+                    "data_path": "action_result.data.*.rules.rules.*.srcPort",
                     "data_type": "string",
+                    "example_values": [
+                        "Any"
+                    ],
                     "column_name": "Source Port",
-                    "column_order": 4
+                    "column_order": 3
+                },
+                {
+                    "data_path": "action_result.data.*.rules.rules.*.syslogEnabled",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ],
+                    "column_name": "Syslog Enabled",
+                    "column_order": 7
+                },
+                {
+                    "data_path": "action_result.data.*.rules_updated",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
                 },
                 {
                     "data_path": "action_result.summary",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.total_rules_updated",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
@@ -1242,7 +1513,11 @@
                     "description": "Network ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "network id"
+                    ]
                 }
             },
             "render": {
@@ -1265,6 +1540,9 @@
                     "data_type": "string",
                     "example_values": [
                         "L_123456789012345"
+                    ],
+                    "contains": [
+                        "network id"
                     ]
                 },
                 {
@@ -1332,7 +1610,11 @@
                     "description": "Network ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 "rules": {
                     "description": "Firewall rules in JSON format",
@@ -1358,33 +1640,60 @@
                 },
                 {
                     "data_path": "action_result.parameter.network_id",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "network id"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.rules",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.data.*.policy",
+                    "data_path": "action_result.data.*.rules.rules.*.policy",
                     "data_type": "string",
+                    "example_values": [
+                        "deny"
+                    ],
                     "column_name": "Policy",
-                    "column_order": 0
-                },
-                {
-                    "data_path": "action_result.data.*.type",
-                    "data_type": "string",
-                    "column_name": "Type",
                     "column_order": 1
                 },
                 {
-                    "data_path": "action_result.data.*.value",
+                    "data_path": "action_result.data.*.rules.rules.*.type",
                     "data_type": "string",
+                    "example_values": [
+                        "host"
+                    ],
+                    "column_name": "Type",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.rules.rules.*.value",
+                    "data_type": "string",
+                    "example_values": [
+                        "facebook.com"
+                    ],
                     "column_name": "Value",
                     "column_order": 2
                 },
                 {
+                    "data_path": "action_result.data.*.rules_updated",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
                     "data_path": "action_result.summary",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.total_rules_updated",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
@@ -1426,7 +1735,11 @@
                     "description": "Organization ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "organization id"
+                    ]
                 }
             },
             "render": {
@@ -1449,6 +1762,9 @@
                     "data_type": "string",
                     "example_values": [
                         "123456789012"
+                    ],
+                    "contains": [
+                        "organization id"
                     ]
                 },
                 {
@@ -1463,14 +1779,18 @@
                     "data_type": "string",
                     "example_values": [
                         "https_allow"
-                    ]
+                    ],
+                    "column_name": "Name",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.data.*.adaptivePolicyId",
                     "data_type": "string",
                     "example_values": [
                         "669910444571361367"
-                    ]
+                    ],
+                    "column_name": "ID",
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.createdAt",
@@ -1507,23 +1827,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.id",
-                    "data_type": "string",
-                    "column_name": "ID",
-                    "column_order": 0
-                },
-                {
                     "data_path": "action_result.data.*.lastEntryRule",
                     "data_type": "string",
                     "example_values": [
                         "allow"
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.name",
-                    "data_type": "string",
-                    "column_name": "Name",
-                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.data.*.sourceGroup.id",
@@ -1596,7 +1904,11 @@
                     "description": "Organization ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "organization id"
+                    ]
                 }
             },
             "render": {
@@ -1619,6 +1931,9 @@
                     "data_type": "string",
                     "example_values": [
                         "123456789012"
+                    ],
+                    "contains": [
+                        "organization id"
                     ]
                 },
                 {
@@ -1754,7 +2069,11 @@
                     "description": "Organization ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "organization id"
+                    ]
                 }
             },
             "render": {
@@ -1777,6 +2096,9 @@
                     "data_type": "string",
                     "example_values": [
                         "123456789012"
+                    ],
+                    "contains": [
+                        "organization id"
                     ]
                 },
                 {
@@ -1876,7 +2198,11 @@
                     "description": "Organization ID",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "organization id"
+                    ]
                 }
             },
             "render": {
@@ -1899,6 +2225,9 @@
                     "data_type": "string",
                     "example_values": [
                         "123456789012"
+                    ],
+                    "contains": [
+                        "organization id"
                     ]
                 },
                 {
@@ -1950,5 +2279,11 @@
             ],
             "versions": "EQ(*)"
         }
-    ]
+    ],
+    "pip_dependencies": {
+        "wheel": []
+    },
+    "pip39_dependencies": {
+        "wheel": []
+    }
 }
