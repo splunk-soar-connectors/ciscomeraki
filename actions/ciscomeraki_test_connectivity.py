@@ -29,7 +29,7 @@ class TestConnectivity(BaseAction):
         Returns:
             bool: Success/failure
         """
-        self._connector.save_progress(TEST_CONNECTIVITY_START_MSG.format("Cisco Meraki"))
+        self._connector.save_progress(consts.TEST_CONNECTIVITY_START_MSG.format("Cisco Meraki"))
         # self._action_result = self._connector.add_action_result(ActionResult(dict()))
 
         # Make a REST call to /organizations to verify API access
