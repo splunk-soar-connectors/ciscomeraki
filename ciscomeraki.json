@@ -1202,6 +1202,245 @@
             "versions": "EQ(*)"
         },
         {
+            "action": "search organization clients",
+            "identifier": "search_organization_clients",
+            "description": "Search for a client in an organization by MAC address",
+            "verbose": "This action searches for a client across all networks in an organization using the client's MAC address. Returns client details and network appearance records.",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "organization_id": {
+                    "description": "Organization ID",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "order": 0,
+                    "contains": [
+                        "organization id"
+                    ]
+                },
+                "mac": {
+                    "description": "MAC address of the client to search for",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1,
+                    "contains": [
+                        "mac address"
+                    ]
+                },
+                "per_page": {
+                    "description": "Number of records per page (3-5, default 5)",
+                    "data_type": "numeric",
+                    "order": 2
+                }
+            },
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "Client Search Results"
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.organization_id",
+                    "data_type": "string",
+                    "example_values": [
+                        "123456789012"
+                    ],
+                    "contains": [
+                        "organization id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.mac",
+                    "data_type": "string",
+                    "example_values": [
+                        "00:11:22:33:44:55"
+                    ],
+                    "contains": [
+                        "mac address"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.per_page",
+                    "data_type": "numeric",
+                    "example_values": [
+                        5
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.clientId",
+                    "data_type": "string",
+                    "column_name": "Client ID",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.mac",
+                    "data_type": "string",
+                    "column_name": "MAC Address",
+                    "column_order": 1,
+                    "contains": [
+                        "mac address"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.manufacturer",
+                    "data_type": "string",
+                    "column_name": "Manufacturer",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.network.id",
+                    "data_type": "string",
+                    "contains": [
+                        "network id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.network.name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.network.organizationId",
+                    "data_type": "string",
+                    "contains": [
+                        "organization id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.network.timeZone",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.ip",
+                    "data_type": "string",
+                    "contains": [
+                        "ip"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.ip6",
+                    "data_type": "string",
+                    "contains": [
+                        "ipv6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.ip6Local",
+                    "data_type": "string",
+                    "contains": [
+                        "ipv6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.vlan",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.ssid",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.switchport",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.firstSeen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.lastSeen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.os",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.user",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.recentDeviceMac",
+                    "data_type": "string",
+                    "contains": [
+                        "mac address"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.recentDeviceSerial",
+                    "data_type": "string",
+                    "contains": [
+                        "serial"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.recentDeviceName",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.recentDeviceConnection",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.records.*.description",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.client_id",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.mac",
+                    "data_type": "string",
+                    "contains": [
+                        "mac address"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.total_records",
+                    "data_type": "numeric",
+                    "example_values": [
+                        3
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Successfully retrieved client search results"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "versions": "EQ(*)"
+        },
+        {
             "action": "list l3 firewall rules",
             "identifier": "list_l3_firewall_rules",
             "description": "List Layer 3 firewall rules for a network",
