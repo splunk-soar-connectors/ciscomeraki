@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # File: ciscomeraki_auth.py
 #
-# Copyright (c) 2025 Splunk Inc.
+# Copyright (c) 2025-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ class CiscoMerakiAuth:
         """Get headers for API requests.
 
         Returns:
-            dict: Headers including auth
+            dict: Headers including auth, or None if API key is not configured
         """
 
         # Get API key from config
@@ -67,7 +67,8 @@ class CiscoMerakiAuth:
         self._api_key = config.get("api_key")
 
         if not self._api_key:
-            return action_result.set_status(phantom.APP_ERROR, "API key not found in asset configuration")
+            self._connector.debug_print("API key not found in asset configuration")
+            return None
 
         headers = {consts.AUTH_HEADER: self._api_key, "Content-Type": "application/json", "Accept": "application/json"}
         return headers

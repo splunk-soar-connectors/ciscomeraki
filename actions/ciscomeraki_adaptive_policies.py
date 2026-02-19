@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # File: ciscomeraki_adaptive_policies.py
 #
-# Copyright (c) 2025 Splunk Inc.
+# Copyright (c) 2025-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,23 @@ import ciscomeraki_consts as consts
 
 class AdaptivePolicies:
     """Class to handle adaptive policy management actions."""
+
+    def __init__(self):
+        """Initialize the adaptive policies handler.
+
+        Note: The following attributes must be set before calling execute():
+        - _param: Action parameters
+        - _action_result: ActionResult object
+        - _connector: Connector instance
+        - _operation_type: Type of operation being performed
+        - _get_endpoint: Method to get API endpoint
+        """
+        # These attributes are set externally before execute() is called
+        self._param = None
+        self._action_result = None
+        self._connector = None
+        self._operation_type = None
+        self._get_endpoint = None
 
     def _validate_params(self):
         """Validate parameters.
@@ -51,7 +68,7 @@ class AdaptivePolicies:
 
         try:
             # Get the appropriate endpoint
-            endpoint = self._get_endpoint(organization_id)
+            endpoint = self._get_endpoint(organization_id)  # pylint: disable=not-callable
 
             # Make REST call
             ret_val, response = self._connector._utils._make_rest_call(endpoint, "get")
