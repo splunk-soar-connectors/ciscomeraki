@@ -7,7 +7,7 @@
     "product_name": "Meraki",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2025 Splunk Inc.",
+    "license": "Copyright (c) 2025-2026 Splunk Inc.",
     "app_version": "1.0.0",
     "latest_tested_versions": [
         "Version X.Y.Z, Month Year"
@@ -18,7 +18,7 @@
     "min_phantom_version": "5.2.0",
     "logo": "logo_ciscomeraki.svg",
     "logo_dark": "logo_ciscomeraki_dark.svg",
-    "python_version": "3",
+    "python_version": "3.9, 3.13",
     "fips_compliant": true,
     "app_wizard_version": "1.0.0",
     "configuration": {
@@ -2284,6 +2284,9 @@
         "wheel": []
     },
     "pip39_dependencies": {
+        "wheel": []
+    },
+    "pip313_dependencies": {
         "wheel": []
     }
 }

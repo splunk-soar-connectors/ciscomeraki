@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # File: ciscomeraki_utils.py
 #
-# Copyright (c) 2025 Splunk Inc.
+# Copyright (c) 2025-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -153,6 +153,8 @@ class CiscoMerakiUtils:
 
         # Get headers from auth module
         headers = self._connector._auth.get_headers()
+        if headers is None:
+            return action_result.set_status(phantom.APP_ERROR, "Failed to get authentication headers"), resp_json
         headers["User-Agent"] = "Splunk SOAR Cisco Test"  # Add User-Agent
         kwargs["headers"] = headers
         kwargs["timeout"] = consts.REQUEST_DEFAULT_TIMEOUT
