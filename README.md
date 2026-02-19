@@ -1,7 +1,7 @@
 # Cisco Meraki
 
 Publisher: Splunk <br>
-Connector Version: 1.0.0 <br>
+Connector Version: 1.0.1 <br>
 Product Vendor: Cisco <br>
 Product Name: Meraki <br>
 Minimum Product Version: 5.2.0

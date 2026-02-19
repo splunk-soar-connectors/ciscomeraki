@@ -8,11 +8,11 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2025-2026 Splunk Inc.",
-    "app_version": "1.0.0",
+    "app_version": "1.0.1",
     "latest_tested_versions": [
         "Version X.Y.Z, Month Year"
     ],
-    "utctime_updated": "2025-08-04T20:55:06.663256Z",
+    "utctime_updated": "2026-02-19T22:48:33.009597Z",
     "package_name": "phantom_ciscomeraki",
     "main_module": "ciscomeraki_connector.py",
     "min_phantom_version": "5.2.0",
