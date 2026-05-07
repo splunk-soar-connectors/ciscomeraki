@@ -28,6 +28,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [update device](#action-update-device) - Update a device in the network <br>
 [remove device](#action-remove-device) - Remove a device from the network <br>
 [list device clients](#action-list-device-clients) - List clients connected to a device <br>
+[search organization clients](#action-search-organization-clients) - Search for a client in an organization by MAC address <br>
 [list l3 firewall rules](#action-list-l3-firewall-rules) - List Layer 3 firewall rules for a network <br>
 [update l3 firewall rules](#action-update-l3-firewall-rules) - Update Layer 3 firewall rules for a network <br>
 [list l7 firewall rules](#action-list-l7-firewall-rules) - List Layer 7 firewall rules for a network <br>
@@ -338,6 +339,61 @@ action_result.data.\*.ip | string | `ip` | |
 action_result.data.\*.mac | string | | |
 action_result.summary.total_clients | numeric | | 5 |
 action_result.message | string | | Total device clients: 5 |
+summary.total_objects | numeric | | 1 |
+summary.total_objects_successful | numeric | | 1 |
+
+## action: 'search organization clients'
+
+Search for a client in an organization by MAC address
+
+Type: **investigate** <br>
+Read only: **True**
+
+This action searches for a client across all networks in an organization using the client's MAC address. Returns client details and network appearance records.
+
+#### Action Parameters
+
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**organization_id** | required | Organization ID | string | `organization id` |
+**mac** | required | MAC address of the client to search for | string | `mac address` |
+**per_page** | optional | Number of records per page (3-5, default 5) | numeric | |
+
+#### Action Output
+
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string | | success failed |
+action_result.parameter.organization_id | string | `organization id` | 123456789012 |
+action_result.parameter.mac | string | `mac address` | 00:11:22:33:44:55 |
+action_result.parameter.per_page | numeric | | 5 |
+action_result.data.\*.clientId | string | | |
+action_result.data.\*.mac | string | `mac address` | |
+action_result.data.\*.manufacturer | string | | |
+action_result.data.\*.records.\*.network.id | string | `network id` | |
+action_result.data.\*.records.\*.network.name | string | | |
+action_result.data.\*.records.\*.network.organizationId | string | `organization id` | |
+action_result.data.\*.records.\*.network.timeZone | string | | |
+action_result.data.\*.records.\*.ip | string | `ip` | |
+action_result.data.\*.records.\*.ip6 | string | `ipv6` | |
+action_result.data.\*.records.\*.ip6Local | string | `ipv6` | |
+action_result.data.\*.records.\*.vlan | string | | |
+action_result.data.\*.records.\*.ssid | string | | |
+action_result.data.\*.records.\*.switchport | string | | |
+action_result.data.\*.records.\*.firstSeen | string | | |
+action_result.data.\*.records.\*.lastSeen | string | | |
+action_result.data.\*.records.\*.os | string | | |
+action_result.data.\*.records.\*.user | string | | |
+action_result.data.\*.records.\*.recentDeviceMac | string | `mac address` | |
+action_result.data.\*.records.\*.recentDeviceSerial | string | `serial` | |
+action_result.data.\*.records.\*.recentDeviceName | string | | |
+action_result.data.\*.records.\*.recentDeviceConnection | string | | |
+action_result.data.\*.records.\*.status | string | | |
+action_result.data.\*.records.\*.description | string | | |
+action_result.summary.client_id | string | | |
+action_result.summary.mac | string | `mac address` | |
+action_result.summary.total_records | numeric | | 3 |
+action_result.message | string | | Successfully retrieved client search results |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
 

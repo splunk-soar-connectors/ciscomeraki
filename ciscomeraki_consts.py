@@ -47,6 +47,7 @@ LIST_DEVICES = "/networks/{network_id}/devices"
 UPDATE_DEVICE = "/networks/{network_id}/devices/{serial}"
 REMOVE_DEVICE = "/networks/{network_id}/devices/{serial}"
 LIST_DEVICE_CLIENTS = "/devices/{serial}/clients"
+SEARCH_ORGANIZATION_CLIENTS = "/organizations/{organization_id}/clients/search"
 
 # Adaptive Policy endpoints
 LIST_ADAPTIVE_POLICIES = "/organizations/{organization_id}/adaptivePolicy/policies"
